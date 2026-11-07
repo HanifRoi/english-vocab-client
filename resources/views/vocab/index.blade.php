@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-200 font-sans">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-4xl mx-auto">
         <div class="flex justify-between items-center mt-5">
             <h1 class="font-semibold text-gray-800 text-xl">Vocabularies</h1>
                 <button id="logoutBtn" class="bg-red-500 hover:bg-red-700 rounded transition text-white py-1 px-3 font-semibold">Logout</button>

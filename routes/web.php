@@ -13,3 +13,7 @@ Route::get('/vocabularies', function(){
 Route::get('/vocabularies/create', function(){
     return view('vocab.create');
 });
+
+Route::get('/vocabularies/{id}/edit', function($id){
+    return view('vocab.edit', ['id'=>$id]);
+});
