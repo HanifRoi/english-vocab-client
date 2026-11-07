@@ -14,6 +14,8 @@
         </div>
         <div class="rounded-2xl shadow-md bg-white px-10 py-6 mt-10">
             <table class="w-full border-collapse text-left  ">
+                <a href="/vocabularies/create" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-3 transition rounded">Tambah Kosakata</a>
+                <p><br></p>
                 <thead>
                     <tr class="bg-gray-100 text-gray-700">
                         <th class="p-3 border-b">Kata</th>

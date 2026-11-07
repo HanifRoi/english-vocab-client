@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/vocabularies', function(){
     return view('vocab.index');
 });
+
+Route::get('/vocabularies/create', function(){
+    return view('vocab.create');
+});
