@@ -64,7 +64,7 @@
                 if(response.ok){
                     localStorage.setItem('auth_token', data.access_token) //simpan token
                     alert('Login Berhasil');
-                    //window.location.href = '/vocabularies';
+                    window.location.href = '/vocabularies';
                 }else{
                     errorMessage.classList.remove('hidden'); //memunculkan kotak merah
                     errorMessage.innerText = data.message || 'Email atau password salah';
