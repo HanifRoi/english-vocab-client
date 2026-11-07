@@ -13,9 +13,10 @@
                 <button id="logoutBtn" class="bg-red-500 hover:bg-red-700 rounded transition text-white py-1 px-3 font-semibold">Logout</button>
         </div>
         <div class="rounded-2xl shadow-md bg-white px-10 py-6 mt-10">
-            <table class="w-full border-collapse text-left  ">
-                <a href="/vocabularies/create" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-3 transition rounded">Tambah Kosakata</a>
+            <a href="/vocabularies/create" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-1 px-3 transition rounded">Tambah Kosakata</a>
                 <p><br></p>
+            <table class="w-full border-collapse text-left  ">
+                
                 <thead>
                     <tr class="bg-gray-100 text-gray-700">
                         <th class="p-3 border-b">Kata</th>
@@ -23,11 +24,12 @@
                         <th class="p-3 border-b">Arti</th>
                         <th class="p-3 border-b">Contoh</th>
                         <th class="p-3 border-b text-center">Status</th>
+                        <th class="p-3 border-b text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="vocabTableBody">
                     <tr>
-                        <td colspan="4" class="text-center p-4 text-gray-500" >Memuat data..</td>
+                        <td colspan="6" class="text-center p-4 text-gray-500" >Memuat data..</td>
                     </tr>
                 </tbody>
             </table>
@@ -65,7 +67,7 @@
                 renderTable(result);
             }catch(error){
                 console.error('Gagal mengambil data', error);
-                tableBody.innerHTML=`<tr><td colspan="4" class="text-center p-4 text-red-500">Gagal menghubungi server.</td></tr>`;
+                tableBody.innerHTML=`<tr><td colspan="6" class="text-center p-4 text-red-500">Gagal menghubungi server.</td></tr>`;
             }
         }
 
@@ -74,7 +76,7 @@
             tableBody.innerHTML = ''; //kosongkan table dulu
 
             if(data.length === 0){
-                tableBody.innerHTML = `<tr><td colspan="4" class="text-center p-4 text-gray-500">Belum ada kosakata</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-4 text-gray-500">Belum ada kosakata</td></tr>`;
                 return;
             }
 
@@ -87,6 +89,10 @@
                         <td class="p-3  text-gray-800">${ vocab.meaning }</td>
                         <td class="p-3  text-gray-800">${ vocab.example || '-' }</td>
                         <td class="p-3">${ vocab.is_mastered ? '<span class="bg-green-100 text-green-700 px-2 py-1">Hafal</span>' : '<span class="bg-yellow-100 text-yellow-700 px-2 py-1">Belum</span>'}</td>
+                        <td class="p-3 flex justify-between items-center">
+                            <a href="/vocabularies/${vocab.id}/edit" class="bg-blue-500 hover:bg-blue-700 rounded px-3 py-1 transition text-white">Edit</a>
+                            <button class="bg-red-500 hover:bg-red-700 rounded transition px-3 py-1 text-white" onclick="deleteVocab(${vocab.id})">Hapus</button>
+                        </td>
                     </tr>`;
                 tableBody.innerHTML += row;
             });
@@ -97,6 +103,35 @@
             localStorage.removeItem('auth_token'); //hapus token
             window.location = '/'; // kembali ke login
         });
+
+        //hapus data
+        async function deleteVocab(id) {
+            //konfirmasi
+            if(!confirm('Apakah anda yakin menghapus data ini?')){
+                return;
+            }
+
+            try{
+                const response = await fetch(`http://localhost:8000/api/vocabularies/${id}`,{
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                if(response.ok){
+                    alert('Kosakata berhasil dihapus');
+                    fetchVocabularies(); //panggil ulang fungsi agar data tabel terupdate
+                }else{
+                    alert('Gagal menghapus data');
+                }
+            }catch(error){
+                console.error('Error: ', error);
+                alert('Gagal menghubungi server');
+            }
+        }
+
         //jalankan fungsi saat page dimuat
         fetchVocabularies();
     </script>
