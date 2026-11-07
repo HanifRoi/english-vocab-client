@@ -1,66 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+ 💻 Vocab Client - Frontend Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ini adalah *Frontend Application* untuk **Vocab App**. Aplikasi ini bertugas menyediakan antarmuka pengguna (UI) dan berkomunikasi dengan **Vocab API** menggunakan protokol HTTP.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Arsitektur Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Project ini menggunakan pendekatan **Decoupled Architecture** (Pemisahan antara Frontend & Backend):
+* **Frontend (Repository ini):** Dibangun dengan Laravel (Blade), Tailwind CSS, dan Vanilla JavaScript (Fetch API).
+* **Backend (API):** Menggunakan layanan terpisah yang dapat dilihat di repository [english-vocab-api](https://github.com/HanifRoi/english-vocab-api).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* **Autentikasi Terintegrasi:** Menu Login dan Register yang terhubung langsung dengan API Backend. Token autentikasi disimpan dengan aman di `localStorage`.
+* **Manajemen Kosakata (CRUD):** 
+  * Menampilkan daftar kosakata secara dinamis (*Read*).
+  * Menambah kosakata baru (*Create*).
+  * Mengubah detail kosakata (*Update*).
+  * Menghapus kosakata (*Delete*).
+* **Proteksi Rute (Middleware/Guard):** Pembatasan hak akses halaman, di mana halaman internal hanya bisa diakses oleh pengguna yang sudah terautentikasi (memiliki token).
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teknologi & Tools (Tech Stack)
 
-## Laravel Sponsors
+* **Framework:** Laravel 11 (Digunakan khusus untuk *routing* dan *view rendering*)
+* **Styling Framework:** Tailwind CSS
+* **HTTP Client:** Native JavaScript `fetch()`
+* **Asset Bundler:** Vite
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Cara Menjalankan Project Secara Lokal
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Ikuti langkah-langkah berikut untuk memasang dan menjalankan frontend di komputer lokal Anda:
 
-## Contributing
+### 1. Clone Repository & Install Dependensi
+```bash
+git clone https://github.com
+cd vocab-client
+composer install
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Setup Environment File
+Salin file `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+> **Catatan:** Sesuaikan konfigurasi database di file `.env` (diperlukan untuk kebutuhan internal *session* atau *cache* bawaan Laravel).
 
-## Code of Conduct
+### 3. Jalankan Aplikasi & Asset Bundler
+Pastikan Anda membuka dua terminal yang berbeda untuk menjalankan perintah di bawah ini secara bersamaan:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* **Terminal 1 (Jalankan Server Frontend di Port 8001):**
+  ```bash
+  php artisan serve --port=8001
+  ```
+* **Terminal 2 (Jalankan Vite Development Server):**
+  ```bash
+  npm run dev
+  ```
 
-## Security Vulnerabilities
+> **Penting:** Pastikan layanan **API Backend** sudah menyala terlebih dahulu di port 8000 (`http://localhost:8000`) agar aplikasi frontend ini dapat bertukar data dengan lancar.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Dikembangkan Oleh
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* **Hanif Roihan**
