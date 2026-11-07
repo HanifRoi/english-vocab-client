@@ -6,6 +6,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
 Route::get('/vocabularies', function(){
     return view('vocab.index');
 });

@@ -14,7 +14,6 @@
         </div>
         <div class="bg-white rounded-2xl shadow-md px-10 py-6">
              <form id="loginForm">
-                @csrf
                 <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-sm"></div>
                 <div class="mb-2">
                     <label class="block font-semibold text-gray-800" for="">Email</label><br>
