@@ -88,7 +88,7 @@
                         <td class="p-3 font-semibold text-gray-800">${ vocab.part_of_speech || '-'}</td>
                         <td class="p-3  text-gray-800">${ vocab.meaning }</td>
                         <td class="p-3  text-gray-800">${ vocab.example || '-' }</td>
-                        <td class="p-3">${ vocab.is_mastered ? '<span class="bg-green-100 text-green-700 px-2 py-1">Hafal</span>' : '<span class="bg-yellow-100 text-yellow-700 px-2 py-1">Belum</span>'}</td>
+                        <td class="p-3">${ vocab.is_mastered ? '<span class="bg-green-100 text-green-700 px-2 py-1 rounded">Hafal</span>' : '<span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded">Belum</span>'}</td>
                         <td class="p-3 flex justify-between items-center">
                             <a href="/vocabularies/${vocab.id}/edit" class="bg-blue-500 hover:bg-blue-700 rounded px-3 py-1 transition text-white">Edit</a>
                             <button class="bg-red-500 hover:bg-red-700 rounded transition px-3 py-1 text-white" onclick="deleteVocab(${vocab.id})">Hapus</button>
